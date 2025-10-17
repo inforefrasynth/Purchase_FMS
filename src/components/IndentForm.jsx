@@ -15,7 +15,7 @@ export default function IndentForm() {
   const [formData, setFormData] = useState({
     generatedBy: "",
     vendorName: "",
-    firmName: "",
+    firmName: "Refrasynth",
     rawMaterialName: "",
     quantity: "",
     currentStock: "",
@@ -35,8 +35,8 @@ export default function IndentForm() {
   const { user, allowedSteps } = useAuth()
 
   const APPS_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbzj9zlZTEhdlmaMt78Qy3kpkz7aOfVKVBRuJkd3wv_UERNrIRCaepSULpNa7W1g-pw/exec"
-  const SHEET_ID = "1NUxf4pnQ-CtCFUjA5rqLgYEJiU77wQlwVyimjt8RmFQ"
+    "https://script.google.com/macros/s/AKfycbwyQtxXOz2-EbKKoCQ6ruKtitWGtYaBjE7LHJp08xLYzDWPcLcyBAv10JaGdDmUlFI/exec"
+  const SHEET_ID = "1yWJyyb5LPxoa62GaqgN6W8-zLzS6Cr5Oqtn8J3hDaug"
   const MASTER_SHEET_NAME = "Master"
   const SHEET_NAME = "INDENT-PO"
 
@@ -101,7 +101,10 @@ export default function IndentForm() {
       if (!allowedSteps.includes("admin") && user?.firmName && user.firmName.toLowerCase() !== "all") {
         options.firmName = options.firmName.filter((firm) => firm.toLowerCase() === user.firmName.toLowerCase())
         setFormData((prev) => ({ ...prev, firmName: user.firmName }))
-      }
+      } else {
+  // ✅ Ye line add karo - agar admin hai ya "all" hai to bhi Refrasynth set ho
+  setFormData((prev) => ({ ...prev, firmName: "Refrasynth" }))
+}
 
       setDropdownOptions(options)
 
@@ -271,7 +274,7 @@ export default function IndentForm() {
       setFormData({
         generatedBy: "",
         // vendorName: "",
-        firmName: user?.firmName && user.firmName.toLowerCase() !== "all" ? user.firmName : "",
+        firmName: user?.firmName && user.firmName.toLowerCase() !== "all" ? user.firmName : "Refrasynth", 
         rawMaterialName: "",
         quantity: "",
         currentStock: "",

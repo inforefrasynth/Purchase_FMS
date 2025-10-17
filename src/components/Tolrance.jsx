@@ -11,9 +11,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label"
 import { AuthContext } from "../context/AuthContext"
 
-const SHEET_ID = "1NUxf4pnQ-CtCFUjA5rqLgYEJiU77wQlwVyimjt8RmFQ"
+const SHEET_ID = "1yWJyyb5LPxoa62GaqgN6W8-zLzS6Cr5Oqtn8J3hDaug"
 const TL_SHEET_NAME = "TL"
-const API_URL = "https://script.google.com/macros/s/AKfycbzj9zlZTEhdlmaMt78Qy3kpkz7aOfVKVBRuJkd3wv_UERNrIRCaepSULpNa7W1g-pw/exec"
+const API_URL = "https://script.google.com/macros/s/AKfycbwyQtxXOz2-EbKKoCQ6ruKtitWGtYaBjE7LHJp08xLYzDWPcLcyBAv10JaGdDmUlFI/exec"
 
 export default function TolerancePage() {
   const { user } = useContext(AuthContext)

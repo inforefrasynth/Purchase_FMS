@@ -36,6 +36,8 @@ import {
   FileEdit, Search, FileCheck, RotateCcw, Save, Edit2, Gauge,Loader2, Scale,AlertTriangle 
 } from 'lucide-react';
 import { Toaster } from "@/components/ui/sonner";
+import License from "./components/License";
+
 
 function App() {
   const { isAuthenticated, allowedSteps } = useAuth();
@@ -74,7 +76,8 @@ function App() {
     { id: "original-bills", label: "Bills Filing", icon: <Archive size={20} />, stepName: "accounts" },
       // { id: "tolrance", label: "Tolrance", icon: < Scale size={20} />, stepName: "tolrance" },
       { id: "mismatch", label: "Mismatch", icon: < AlertTriangle size={20} />, stepName: "mismatch" },
-
+      {id: "license", label: "License", icon: <User size={20} />, stepName: "license" },
+     
 
     // { id: "kyc", label: "KYC", icon: <UserCheck size={20} />, stepName: "KYC" },
     // { id: "vendor-payment", label: "Vendor Payment", icon: <Landmark size={20} />, stepName: "Vendor Payment" }
@@ -171,6 +174,8 @@ function App() {
       case "original-bills": return <OriginalBillsFiledPage />;
       case "tolrance": return <TolrancePage />;
       case "mismatch": return <Mismatch />;
+      case "license": return <License />;
+     
       case "kyc": return <KycPage />;
       case "vendor-payment": return <VendorPaymentPage />;
       default: return <Dashboard />;

@@ -30,10 +30,10 @@ import { MixerHorizontalIcon } from "@radix-ui/react-icons"
 import { AuthContext } from "../context/AuthContext" // Import AuthContext
 
 // --- Constants for Google Sheets and Apps Script ---
-const SHEET_ID = "1NUxf4pnQ-CtCFUjA5rqLgYEJiU77wQlwVyimjt8RmFQ"
+const SHEET_ID = "1yWJyyb5LPxoa62GaqgN6W8-zLzS6Cr5Oqtn8J3hDaug"
 const LIFTS_SHEET_NAME = "LIFT-ACCOUNTS"
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzj9zlZTEhdlmaMt78Qy3kpkz7aOfVKVBRuJkd3wv_UERNrIRCaepSULpNa7W1g-pw/exec"
+  "https://script.google.com/macros/s/AKfycbwyQtxXOz2-EbKKoCQ6ruKtitWGtYaBjE7LHJp08xLYzDWPcLcyBAv10JaGdDmUlFI/exec"
 const DATA_START_ROW_LIFTS = 6; // FIX: Corrected from 7 to 6
 
 // ---- Column Indices for LIFT-ACCOUNTS (0-based) ----

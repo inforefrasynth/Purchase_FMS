@@ -15,10 +15,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { AuthContext } from "../context/AuthContext" // Import AuthContext
 
 // --- Google Sheet Configuration ---
-const SHEET_ID = "1NUxf4pnQ-CtCFUjA5rqLgYEJiU77wQlwVyimjt8RmFQ"
+const SHEET_ID = "1yWJyyb5LPxoa62GaqgN6W8-zLzS6Cr5Oqtn8J3hDaug"
 const SHEET_NAME = "LIFT-ACCOUNTS"
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzj9zlZTEhdlmaMt78Qy3kpkz7aOfVKVBRuJkd3wv_UERNrIRCaepSULpNa7W1g-pw/exec"
+  "https://script.google.com/macros/s/AKfycbwyQtxXOz2-EbKKoCQ6ruKtitWGtYaBjE7LHJp08xLYzDWPcLcyBAv10JaGdDmUlFI/exec"
 
 // IMPORTANT: Set this to the actual row number in your sheet where the data begins (1-indexed)
 const DATA_START_ROW = 6; // FIX: Changed from 6 to 7 to match the sheet structure

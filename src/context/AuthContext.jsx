@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
   const [allowedSteps, setAllowedSteps] = useState([])
 
   // --- HARDCODED GOOGLE SHEET CONFIGURATION ---
-  const SHEET_ID = "1NUxf4pnQ-CtCFUjA5rqLgYEJiU77wQlwVyimjt8RmFQ"
+  const SHEET_ID = "1yWJyyb5LPxoa62GaqgN6W8-zLzS6Cr5Oqtn8J3hDaug"
   const SHEET_NAME = "Login"
   // --- END HARDCODED CONFIG ---
 
