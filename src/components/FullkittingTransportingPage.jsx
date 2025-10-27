@@ -25,9 +25,9 @@ const SHEET_NAME = "Freight full kittingg";
 // --- Column Indices (0-based) from 'Freight full kittingg' sheet ---
 const COL_FIRM_NAME = 1;         // B
 const COL_LIFT_NUMBER = 2;       // C
-const COL_PARTY_NAME = 4;        // E
-const COL_PRODUCT_NAME = 5;      // F
-const COL_TRANSPORTER_NAME = 9;  // J
+const COL_PARTY_NAME = 5;        // E
+const COL_PRODUCT_NAME = 6;      // F
+const COL_TRANSPORTER_NAME = 10;  // J
 const COL_PLANNED = 22;          // W (Condition column 1)
 const COL_ACTUAL = 23;           // X (Condition column 2)
 const COL_KITTING_LINK = 25;     // Z (Link for the action button)
