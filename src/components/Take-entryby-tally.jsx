@@ -465,34 +465,38 @@ const toggleColumnFilter = () => {
       
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-6">
+<div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-6">
   <div className="px-6 py-4 border-b border-gray-200">
-    <div className="flex items-center justify-between">
+    {/* ✅ Responsive Header */}
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      {/* Title Section */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Take Entry By Tally</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Take Entry By Tally</h1>
         <p className="text-sm text-gray-600 mt-1">Record entries using tally verification</p>
       </div>
-      <div className="flex items-center space-x-3">
+
+      {/* Buttons Section */}
+      <div className="flex flex-wrap sm:flex-nowrap items-center gap-3">
         {/* Column Filter Dropdown */}
         <div className="relative">
           <button
             onClick={toggleColumnFilter}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-200"
+            className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-200 w-full sm:w-auto justify-center"
           >
             <Filter className="w-4 h-4 mr-2" />
             Columns
           </button>
-          
+
           {showColumnFilter && (
             <>
               {/* Backdrop */}
-              <div 
-                className="fixed inset-0 z-10" 
+              <div
+                className="fixed inset-0 z-10"
                 onClick={() => setShowColumnFilter(false)}
               ></div>
-              
+
               {/* Dropdown */}
-              <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-20 max-h-80 overflow-y-auto">
+              <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-20 max-h-80 overflow-y-auto">
                 <div className="p-4">
                   <h3 className="text-sm font-medium text-gray-700 mb-3">Show/Hide Columns</h3>
                   <div className="grid grid-cols-1 gap-2">
@@ -519,9 +523,12 @@ const toggleColumnFilter = () => {
                       totalFreight: 'Total Freight',
                       status: 'Status',
                       remarks: 'Remarks',
-                      actions: 'Actions'
+                      actions: 'Actions',
                     }).map(([key, label]) => (
-                      <label key={key} className="flex items-center space-x-2 text-sm py-1 hover:bg-gray-50 px-2 rounded cursor-pointer">
+                      <label
+                        key={key}
+                        className="flex items-center space-x-2 text-sm py-1 hover:bg-gray-50 px-2 rounded cursor-pointer"
+                      >
                         <input
                           type="checkbox"
                           checked={visibleColumns[key]}
@@ -537,10 +544,11 @@ const toggleColumnFilter = () => {
             </>
           )}
         </div>
-        
+
+        {/* Refresh Button */}
         <button
           onClick={fetchData}
-          className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-200"
+          className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors duration-200 w-full sm:w-auto justify-center"
         >
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh
@@ -548,12 +556,15 @@ const toggleColumnFilter = () => {
       </div>
     </div>
   </div>
+
+  {/* Footer Info */}
   <div className="px-6 py-3">
     <p className="text-sm text-gray-500">
       Showing {accountsData.length} records available for tally entry
     </p>
   </div>
 </div>
+
 
         {/* Data Table */}
 <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">

@@ -985,121 +985,183 @@ useEffect(() => {
             )}
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-4">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-            <TabsList className="grid w-full sm:w-[580px] grid-cols-3 mb-4">
-              <TabsTrigger value="approve" className="flex items-center gap-2">
-                <File className="h-4 w-4" /> Approve Indents
-                <Badge variant="secondary" className="ml-1.5 px-1.5 py-0.5 text-xs">
-                  {filteredIndents.length}
-                </Badge>
-              </TabsTrigger>
-              <TabsTrigger value="history" className="flex items-center gap-2">
-                <History className="h-4 w-4" /> PO History
-                <Badge variant="secondary" className="ml-1.5 px-1.5 py-0.5 text-xs">
-                  {filteredPOs.length}
-                </Badge>
-              </TabsTrigger>
-              <TabsTrigger value="advancePayment" className="flex items-center gap-2">
-                <Wallet className="h-4 w-4" /> Advance Payment
-                <Badge variant="secondary" className="ml-1.5 px-1.5 py-0.5 text-xs">
-                  {filteredPaymentIndents.length}
-                </Badge>
-              </TabsTrigger>
-            </TabsList>
-            <div className="mb-4 p-4 bg-purple-50/50 rounded-lg">
-              <div className="flex items-center gap-2 mb-3">
-                <Filter className="h-4 w-4 text-gray-500" />
-                <Label className="text-sm font-medium">Filters</Label>
-                <Button variant="outline" size="sm" onClick={clearAllFilters} className="ml-auto bg-white">
-                  Clear All
-                </Button>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Select value={filters.vendorName} onValueChange={(value) => handleFilterChange("vendorName", value)}>
-                  <SelectTrigger className="h-9 bg-white">
-                    <SelectValue placeholder="All Vendors" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Vendors</SelectItem>
-                    {vendorOptions.map((vendor) => (
-                      <SelectItem key={vendor} value={vendor}>
-                        {vendor}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {activeTab !== "advancePayment" && (
-                  <Select value={filters.rawMaterialName} onValueChange={(value) => handleFilterChange("rawMaterialName", value)}>
-                    <SelectTrigger className="h-9 bg-white">
-                      <SelectValue placeholder="All Materials" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Materials</SelectItem>
-                      {materialOptions.map((material) => (
-                        <SelectItem key={material} value={material}>
-                          {material}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-                <Select value={filters.firmName} onValueChange={(value) => handleFilterChange("firmName", value)}>
-                  <SelectTrigger className="h-9 bg-white">
-                    <SelectValue placeholder="All Firms" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Firms</SelectItem>
-                    {firmOptions.map((firm) => (
-                      <SelectItem key={firm} value={firm}>
-                        {firm}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <TabsContent value="approve" className="flex-1 flex flex-col mt-0">
-              {renderTableSection(
-                "approve",
-                "Approved Indents (Ready for PO)",
-                "Select an indent to generate its purchase order.",
-                filteredIndents,
-                allIndentColumnsMeta,
-                visibleIndentColumns,
-                loading,
-                !!error,
-                error
-              )}
-            </TabsContent>
-            <TabsContent value="history" className="flex-1 flex flex-col mt-0">
-              {renderTableSection(
-                "history",
-                "Purchase Order History",
-                "View all generated purchase orders.",
-                filteredPOs,
-                allPoColumnsMeta,
-                visiblePoColumns,
-                loading,
-                !!error,
-                error
-              )}
-            </TabsContent>
-            <TabsContent value="advancePayment" className="flex-1 flex flex-col mt-0">
-              {renderTableSection(
-                "advancePayment",
-                "Advance Payments Needed",
-                "Record advance payments for approved indents.",
-                filteredPaymentIndents, 
-                ADVANCE_PAYMENT_COLUMNS_META,
-                visiblePaymentColumns,
-                paymentLoading,
-                !!paymentError,
-                paymentError
-              )}
-            </TabsContent>
-          </Tabs>
-        </CardContent>
+      <CardContent className="p-2 sm:p-4">
+  <Tabs
+    value={activeTab}
+    onValueChange={setActiveTab}
+    className="flex-1 flex flex-col w-full"
+  >
+    {/* ✅ Tabs Header (Responsive) */}
+   <TabsList className="relative z-10 flex flex-wrap sm:grid sm:grid-cols-3 w-full gap-2 sm:gap-0 mb-4">
+  <TabsTrigger
+    value="approve"
+    className="flex-1 min-w-[120px] flex items-center justify-center gap-2 text-sm sm:text-base p-2 sm:p-3"
+  >
+    <File className="h-4 w-4" /> Approve Indents
+    <Badge variant="secondary" className="ml-1.5 px-1.5 py-0.5 text-xs">
+      {filteredIndents.length}
+    </Badge>
+  </TabsTrigger>
+
+  <TabsTrigger
+    value="history"
+    className="flex-1 min-w-[120px] flex items-center justify-center gap-2 text-sm sm:text-base p-2 sm:p-3"
+  >
+    <History className="h-4 w-4" /> PO History
+    <Badge variant="secondary" className="ml-1.5 px-1.5 py-0.5 text-xs">
+      {filteredPOs.length}
+    </Badge>
+  </TabsTrigger>
+
+  <TabsTrigger
+    value="advancePayment"
+    className="flex-1 min-w-[120px] flex items-center justify-center gap-2 text-sm sm:text-base p-2 sm:p-3"
+  >
+    <Wallet className="h-4 w-4" /> Advance Payment
+    <Badge variant="secondary" className="ml-1.5 px-1.5 py-0.5 text-xs">
+      {filteredPaymentIndents.length}
+    </Badge>
+  </TabsTrigger>
+</TabsList>
+
+
+    {/* ✅ Filters Section */}
+<div className="mb-4 p-3 sm:p-4 bg-purple-50/50 rounded-lg mt-16 sm:mt-4">
+  <div className="flex flex-wrap items-center gap-2 mb-3">
+    <Filter className="h-4 w-4 text-gray-500" />
+    <Label className="text-sm font-medium">Filters</Label>
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={clearAllFilters}
+      className="ml-auto bg-white"
+    >
+      Clear All
+    </Button>
+  </div>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    <Select
+      value={filters.vendorName}
+      onValueChange={(value) => handleFilterChange("vendorName", value)}
+    >
+      <SelectTrigger className="h-9 bg-white">
+        <SelectValue placeholder="All Vendors" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all">All Vendors</SelectItem>
+        {vendorOptions.map((vendor) => (
+          <SelectItem key={vendor} value={vendor}>
+            {vendor}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+
+    {activeTab !== "advancePayment" && (
+      <Select
+        value={filters.rawMaterialName}
+        onValueChange={(value) =>
+          handleFilterChange("rawMaterialName", value)
+        }
+      >
+        <SelectTrigger className="h-9 bg-white">
+          <SelectValue placeholder="All Materials" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All Materials</SelectItem>
+          {materialOptions.map((material) => (
+            <SelectItem key={material} value={material}>
+              {material}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    )}
+
+    <Select
+      value={filters.firmName}
+      onValueChange={(value) => handleFilterChange("firmName", value)}
+    >
+      <SelectTrigger className="h-9 bg-white">
+        <SelectValue placeholder="All Firms" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all">All Firms</SelectItem>
+        {firmOptions.map((firm) => (
+          <SelectItem key={firm} value={firm}>
+            {firm}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  </div>
+</div>
+
+
+
+    {/* ✅ Approve Indents Tab */}
+    <TabsContent
+      value="approve"
+      className="flex-1 flex flex-col mt-0 px-1 sm:px-3"
+    >
+      <div className="w-full overflow-x-auto rounded-lg shadow-sm border border-gray-200 bg-white">
+        {renderTableSection(
+          "approve",
+          "Approved Indents (Ready for PO)",
+          "Select an indent to generate its purchase order.",
+          filteredIndents,
+          allIndentColumnsMeta,
+          visibleIndentColumns,
+          loading,
+          !!error,
+          error
+        )}
+      </div>
+    </TabsContent>
+
+    {/* ✅ PO History Tab */}
+    <TabsContent
+      value="history"
+      className="flex-1 flex flex-col mt-0 px-1 sm:px-3"
+    >
+      <div className="w-full overflow-x-auto rounded-lg shadow-sm border border-gray-200 bg-white">
+        {renderTableSection(
+          "history",
+          "Purchase Order History",
+          "View all generated purchase orders.",
+          filteredPOs,
+          allPoColumnsMeta,
+          visiblePoColumns,
+          loading,
+          !!error,
+          error
+        )}
+      </div>
+    </TabsContent>
+
+    {/* ✅ Advance Payment Tab */}
+    <TabsContent
+      value="advancePayment"
+      className="flex-1 flex flex-col mt-0 px-1 sm:px-3"
+    >
+      <div className="w-full overflow-x-auto rounded-lg shadow-sm border border-gray-200 bg-white">
+        {renderTableSection(
+          "advancePayment",
+          "Advance Payments Needed",
+          "Record advance payments for approved indents.",
+          filteredPaymentIndents,
+          ADVANCE_PAYMENT_COLUMNS_META,
+          visiblePaymentColumns,
+          paymentLoading,
+          !!paymentError,
+          paymentError
+        )}
+      </div>
+    </TabsContent>
+  </Tabs>
+</CardContent>
+
       </Card>
       {isModalOpen && (
         <Dialog open={isModalOpen} onOpenChange={closeModal}>

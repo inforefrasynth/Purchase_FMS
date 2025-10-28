@@ -1103,146 +1103,193 @@ export default function MismatchAnalysis() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6">
       {renderModal()}
       
-      <div className="max-w-7xl mx-auto space-y-6">
-        <Card className="shadow-md border-none">
-          <CardHeader className="p-4 border-b border-gray-200">
-            <CardTitle className="flex items-center gap-2 text-gray-700 text-lg">
-              <TrendingDown className="h-5 w-5 text-red-600" /> Mismatch Analysis Dashboard
-            </CardTitle>
-            <CardDescription className="text-gray-500 text-sm">
-              Identify and analyze rate, quantity, and material property mismatches across sheets.
-              {user?.firmName && user.firmName.toLowerCase() !== "all" && (
-                <span className="ml-2 text-red-600 font-medium">• Filtered by: {user.firmName}</span>
-              )}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-4">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-              <TabsList className="grid w-full sm:w-[750px] grid-cols-3 mb-4">
-                <TabsTrigger value="rateMismatch" className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4" /> Rate Mismatches
-                  <Badge variant="destructive" className="ml-1.5 px-1.5 py-0.5 text-xs">
-                    {filteredRateMismatchData.length}
-                  </Badge>
-                </TabsTrigger>
-                <TabsTrigger value="quantityMismatch" className="flex items-center gap-2">
-                  <Package className="h-4 w-4" /> Quantity Mismatches
-                  <Badge variant="destructive" className="ml-1.5 px-1.5 py-0.5 text-xs">
-                    {filteredQuantityMismatchData.length}
-                  </Badge>
-                </TabsTrigger>
-                <TabsTrigger value="materialMismatch" className="flex items-center gap-2">
-                  <Beaker className="h-4 w-4" /> Material Mismatches
-                  <Badge variant="destructive" className="ml-1.5 px-1.5 py-0.5 text-xs">
-                    {filteredMaterialMismatchData.length}
-                  </Badge>
-                </TabsTrigger>
-              </TabsList>
+<div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 px-3 sm:px-4 lg:px-0 relative z-10">
+  <Card className="shadow-md border-none overflow-visible relative z-20">
+    <CardHeader className="p-3 sm:p-4 border-b border-gray-200">
+      <CardTitle className="flex flex-wrap items-center gap-2 text-gray-700 text-base sm:text-lg">
+        <TrendingDown className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" /> 
+        <span className="leading-tight">Mismatch Analysis Dashboard</span>
+      </CardTitle>
+      <CardDescription className="text-gray-500 text-xs sm:text-sm mt-1 sm:mt-2">
+        <span className="block sm:inline">Identify and analyze rate, quantity, and material property mismatches across sheets.</span>
+        {user?.firmName && user.firmName.toLowerCase() !== "all" && (
+          <span className="text-red-600 font-medium block mt-1 sm:inline sm:ml-1 sm:mt-0">
+            • Filtered by: {user.firmName}
+          </span>
+        )}
+      </CardDescription>
+    </CardHeader>
 
-              {/* Filters */}
-              <div className="mb-4 p-4 bg-red-50/50 rounded-lg">
-                <div className="flex items-center gap-2 mb-3">
-                  <Filter className="h-4 w-4 text-gray-500" />
-                  <Label className="text-sm font-medium">Filters</Label>
-                  <Button variant="outline" size="sm" onClick={clearAllFilters} className="ml-auto bg-white">
-                    Clear All
-                  </Button>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <Select value={filters.vendorName} onValueChange={(value) => handleFilterChange("vendorName", value)}>
-                    <SelectTrigger className="h-8 bg-white">
-                      <SelectValue placeholder="All Vendors" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Vendors</SelectItem>
-                      {uniqueFilterOptions.vendorName.map((vendor) => (
-                        <SelectItem key={vendor} value={vendor}>
-                          {vendor}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+    <CardContent className="p-3 sm:p-4 relative z-30 overflow-visible">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="flex-1 flex flex-col relative z-30 overflow-visible"
+      >
+        {/* Responsive TabsList */}
+        <TabsList className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 md:gap-4 w-full mb-10 sm:mb-8 relative z-[100] bg-blue-50 rounded-lg p-1.5 sm:p-1">
+          <TabsTrigger
+            value="rateMismatch"
+            className="flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-base rounded-md hover:bg-gray-100 transition py-2 sm:py-2.5"
+          >
+            <DollarSign className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" /> 
+            <span className="truncate">Rate Mismatches</span>
+            <Badge variant="destructive" className="ml-0.5 sm:ml-1 px-1 sm:px-1.5 py-0.5 text-[10px] sm:text-xs flex-shrink-0">
+              {filteredRateMismatchData.length}
+            </Badge>
+          </TabsTrigger>
 
-                  <Select value={filters.materialName} onValueChange={(value) => handleFilterChange("materialName", value)}>
-                    <SelectTrigger className="h-8 bg-white">
-                      <SelectValue placeholder="All Materials" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Materials</SelectItem>
-                      {uniqueFilterOptions.materialName.map((material) => (
-                        <SelectItem key={material} value={material}>
-                          {material}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+          <TabsTrigger
+            value="quantityMismatch"
+            className="flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-base rounded-md hover:bg-gray-100 transition py-2 sm:py-2.5"
+          >
+            <Package className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" /> 
+            <span className="truncate">Quantity Mismatches</span>
+            <Badge variant="destructive" className="ml-0.5 sm:ml-1 px-1 sm:px-1.5 py-0.5 text-[10px] sm:text-xs flex-shrink-0">
+              {filteredQuantityMismatchData.length}
+            </Badge>
+          </TabsTrigger>
 
-                  <Select value={filters.firmName} onValueChange={(value) => handleFilterChange("firmName", value)}>
-                    <SelectTrigger className="h-8 bg-white">
-                      <SelectValue placeholder="All Firms" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Firms</SelectItem>
-                      {uniqueFilterOptions.firmName.map((firm) => (
-                        <SelectItem key={firm} value={firm}>
-                          {firm}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+          <TabsTrigger
+            value="materialMismatch"
+            className="flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-base rounded-md hover:bg-gray-100 transition py-2 sm:py-2.5"
+          >
+            <Beaker className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" /> 
+            <span className="truncate">Material Mismatches</span>
+            <Badge variant="destructive" className="ml-0.5 sm:ml-1 px-1 sm:px-1.5 py-0.5 text-[10px] sm:text-xs flex-shrink-0">
+              {filteredMaterialMismatchData.length}
+            </Badge>
+          </TabsTrigger>
+        </TabsList>
 
-                  <Select value={filters.orderNumber} onValueChange={(value) => handleFilterChange("orderNumber", value)}>
-                    <SelectTrigger className="h-8 bg-white">
-                      <SelectValue placeholder="All Orders" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Orders</SelectItem>
-                      {uniqueFilterOptions.orderNumber.map((order) => (
-                        <SelectItem key={order} value={order}>
-                          {order}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+        {/* Responsive Filters Section */}
+        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-50/50 rounded-lg relative z-10">
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <Filter className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gray-500 flex-shrink-0" />
+            <Label className="text-xs sm:text-sm font-medium">Filters</Label>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={clearAllFilters}
+              className="ml-auto bg-white text-xs sm:text-sm px-2 sm:px-3 py-1 h-auto"
+            >
+              Clear All
+            </Button>
+          </div>
 
-              <TabsContent value="rateMismatch" className="flex-1 flex flex-col mt-0">
-                {renderTableSection(
-                  "rateMismatch",
-                  "Rate Mismatches",
-                  "Material rates from LIFT-ACCOUNTS (Column Q) that don't match PO rates from INDENT-PO (Column Y).",
-                  filteredRateMismatchData,
-                  RATE_MISMATCH_COLUMNS_META,
-                  visibleRateMismatchColumns
-                )}
-              </TabsContent>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+            <Select value={filters.vendorName} onValueChange={(v) => handleFilterChange("vendorName", v)}>
+              <SelectTrigger className="h-8 sm:h-9 bg-white w-full text-xs sm:text-sm">
+                <SelectValue placeholder="All Vendors" />
+              </SelectTrigger>
+              <SelectContent className="z-[9999]">
+                <SelectItem value="all" className="text-xs sm:text-sm">All Vendors</SelectItem>
+                {uniqueFilterOptions.vendorName.map((vendor) => (
+                  <SelectItem key={vendor} value={vendor} className="text-xs sm:text-sm">
+                    {vendor}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-              <TabsContent value="quantityMismatch" className="flex-1 flex flex-col mt-0">
-                {renderTableSection(
-                  "quantityMismatch",
-                  "Quantity Mismatches",
-                  "Lifted quantities (Column J) that don't match Weight Slip quantities (Column BF) in LIFT-ACCOUNTS.",
-                  filteredQuantityMismatchData,
-                  QUANTITY_MISMATCH_COLUMNS_META,
-                  visibleQuantityMismatchColumns
-                )}
-              </TabsContent>
+            <Select value={filters.materialName} onValueChange={(v) => handleFilterChange("materialName", v)}>
+              <SelectTrigger className="h-8 sm:h-9 bg-white w-full text-xs sm:text-sm">
+                <SelectValue placeholder="All Materials" />
+              </SelectTrigger>
+              <SelectContent className="z-[9999]">
+                <SelectItem value="all" className="text-xs sm:text-sm">All Materials</SelectItem>
+                {uniqueFilterOptions.materialName.map((m) => (
+                  <SelectItem key={m} value={m} className="text-xs sm:text-sm">
+                    {m}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-              <TabsContent value="materialMismatch" className="flex-1 flex flex-col mt-0">
-                {renderTableSection(
-                  "materialMismatch",
-                  "Material Properties Mismatches",
-                  "Material properties (Alumina, Iron, AP) that don't match between TL sheet and LIFT-ACCOUNTS sheet for the same raw material.",
-                  filteredMaterialMismatchData,
-                  MATERIAL_MISMATCH_COLUMNS_META,
-                  visibleMaterialMismatchColumns
-                )}
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
-      </div>
+            <Select value={filters.firmName} onValueChange={(v) => handleFilterChange("firmName", v)}>
+              <SelectTrigger className="h-8 sm:h-9 bg-white w-full text-xs sm:text-sm">
+                <SelectValue placeholder="All Firms" />
+              </SelectTrigger>
+              <SelectContent className="z-[9999]">
+                <SelectItem value="all" className="text-xs sm:text-sm">All Firms</SelectItem>
+                {uniqueFilterOptions.firmName.map((firm) => (
+                  <SelectItem key={firm} value={firm} className="text-xs sm:text-sm">
+                    {firm}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={filters.orderNumber} onValueChange={(v) => handleFilterChange("orderNumber", v)}>
+              <SelectTrigger className="h-8 sm:h-9 bg-white w-full text-xs sm:text-sm">
+                <SelectValue placeholder="All Orders" />
+              </SelectTrigger>
+              <SelectContent className="z-[9999]">
+                <SelectItem value="all" className="text-xs sm:text-sm">All Orders</SelectItem>
+                {uniqueFilterOptions.orderNumber.map((o) => (
+                  <SelectItem key={o} value={o} className="text-xs sm:text-sm">
+                    {o}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Tabs Content */}
+        <TabsContent value="rateMismatch" className="flex-1 flex flex-col mt-0">
+          {renderTableSection(
+            "rateMismatch",
+            "Rate Mismatches",
+            "Material rates from LIFT-ACCOUNTS (Column Q) that don't match PO rates from INDENT-PO (Column Y).",
+            filteredRateMismatchData,
+            RATE_MISMATCH_COLUMNS_META,
+            visibleRateMismatchColumns
+          )}
+        </TabsContent>
+
+      <TabsContent
+  value="quantityMismatch"
+  className="flex-1 flex flex-col mt-0 px-2 sm:px-4"
+>
+  <div className="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+    <div className="min-w-[700px] sm:min-w-full">
+      {renderTableSection(
+        "quantityMismatch",
+        "Quantity Mismatches",
+        "Lifted quantities (Column J) that don't match Weight Slip quantities (Column BF) in LIFT-ACCOUNTS.",
+        filteredQuantityMismatchData,
+        QUANTITY_MISMATCH_COLUMNS_META,
+        visibleQuantityMismatchColumns
+      )}
+    </div>
+  </div>
+</TabsContent>
+
+
+        <TabsContent
+  value="materialMismatch"
+  className="flex-1 flex flex-col mt-0 px-2 sm:px-4"
+>
+  <div className="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+    <div className="min-w-[700px] sm:min-w-full">
+      {renderTableSection(
+        "materialMismatch",
+        "Material Properties Mismatches",
+        "Material properties (Alumina, Iron, AP) that don't match between TL sheet and LIFT-ACCOUNTS sheet for the same raw material.",
+        filteredMaterialMismatchData,
+        MATERIAL_MISMATCH_COLUMNS_META,
+        visibleMaterialMismatchColumns
+      )}
+    </div>
+  </div>
+</TabsContent>
+
+      </Tabs>
+    </CardContent>
+  </Card>
+</div>
+
     </div>
   );
 }
